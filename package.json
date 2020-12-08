@@ -1,0 +1,32 @@
+{
+  "name": "haber8-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js",
+    "watch": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kod8/haber8-scraper.git"
+  },
+  "author": "abdullah",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/kod8/haber8-scraper/issues"
+  },
+  "homepage": "https://github.com/kod8/haber8-scraper#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "jsonexport": "^3.0.1"
+  },
+  "nodemonConfig": {
+    "delay": 1000,
+    "ignore": [
+      ".git/*",
+      "data/*"
+    ]
+  }
+}
