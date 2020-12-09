@@ -19,8 +19,9 @@
   },
   "homepage": "https://github.com/kod8/haber8-scraper#readme",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
-    "jsonexport": "^3.0.1"
+    "jsonexport": "^3.0.1",
+    "node-fetch": "^2.6.1",
+    "node-html-parser": "^2.0.0"
   },
   "nodemonConfig": {
     "delay": 1000,
