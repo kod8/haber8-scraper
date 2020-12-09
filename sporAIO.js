@@ -8,9 +8,6 @@ const {fetchAsync} = require('./utils.js');
  async function start(){
     var sporData={};
 
-    
-
-
     for(const lig in PUAN_FIKSTUR_SONUC_URLS){
 
         var ligID = lig;
@@ -46,8 +43,9 @@ const {fetchAsync} = require('./utils.js');
     }
 
     writeFile(sporData,"spor","./data/spor/","json");
-
-
+   
+    var logText = `${new Date().toGMTString()}: Spor dosyaları güncellendi`
+    writeFile(logText,"logs","./","log");
 }
 
 
