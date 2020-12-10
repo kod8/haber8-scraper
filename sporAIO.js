@@ -43,9 +43,10 @@ const {fetchAsync} = require('./utils.js');
     }
 
     writeFile(sporData,"spor","./data/spor/","json");
-   
+   /*
     var logText = `${new Date().toGMTString()}: Spor dosyaları güncellendi`
     writeFile(logText,"logs","./","log");
+    */
 }
 
 
@@ -55,6 +56,7 @@ function writeFile(data,name,dir,ext){
 		console.log(dir+name+ext," yazıldı")
 	});
 }
+
 
 function removeLinksInHTML(element){
     element.querySelectorAll("td").forEach(function(td){
