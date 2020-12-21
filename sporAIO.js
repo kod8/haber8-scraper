@@ -57,7 +57,6 @@ function writeFile(data,name,dir,ext){
 	});
 }
 
-
 function removeLinksInHTML(element){
     element.querySelectorAll("td").forEach(function(td){
         if(td.querySelector("a")){
@@ -108,10 +107,6 @@ function sonucObj(){
     
     return obj;
 }
-
-
-
-
 
 module.exports = {start}
 
