@@ -33,17 +33,17 @@ const {fetchAsync} = require('./utils.js');
         var fiksturHTML = removeLinksInHTML(fullDOM.querySelectorAll("table.liste.cs_LF")[0])
         writeFile(fiksturHTML.toString(),ligID,"./data/spor/html/fikstur/","html");
         sporData[ligID].fiksturHTML = fiksturHTML.toString();
-        //fiksturJSON = fiksturObj(fiksturHTML);
-        //writeFile(fiksturJSON ,ligID,"./data/spor/json/fikstur/","json");
-        //sporData[ligID].fiksturJSON = fiksturJSON;
+        fiksturJSON = fiksturObj(fiksturHTML);
+        writeFile(fiksturJSON ,ligID,"./data/spor/json/fikstur/","json");
+        sporData[ligID].fiksturJSON = fiksturJSON;
 
         //SONUC        
         var sonucHTML = removeLinksInHTML(fullDOM.querySelectorAll("table.liste.cs_LF")[1]);
         writeFile(sonucHTML.toString(),ligID,"./data/spor/html/sonuc/","html");
         sporData[ligID].sonucHTML = sonucHTML.toString();
-        //sonucJSON = puanObj(sonucHTML);
-        //writeFile(sonucJSON ,ligID,"./data/spor/json/sonuc/","json");
-        //sporData[ligID].sonucJSON = sonucJSON;
+        sonucJSON = sonucObj(sonucHTML);
+        writeFile(sonucJSON ,ligID,"./data/spor/json/sonuc/","json");
+        sporData[ligID].sonucJSON = sonucJSON;
     }
     //TODO : Send POST KOD8 API 
     writeFile(sporData,"spor","./data/spor/","json");
@@ -83,29 +83,35 @@ function puanObj(puanHTML){
         })
         obj.list.push(listItemObj);
     })
+    return obj;
+}
 
-    puanHTML.querySelectorAll("tr:not(thead tr)").forEach(function(tr){
-        console.log(tr.toString())
+function fiksturObj(fiksturHTML){
+    var matchList = [];
+    var rows = fiksturHTML.querySelectorAll("tr");
+    rows.forEach(function(row){
+        var matchItem = {};
+        matchItem.date=row.querySelectorAll("td")[0].innerText;
+        matchItem.team1 = row.querySelectorAll("td")[1].innerText;
+        matchItem.team2 = row.querySelectorAll("td")[3].innerText;
+        matchList.push(matchItem);
     })
-
-    return obj;
+    return matchList;
 }
 
-// TODO: FiksturOBJ func
-function fiksturObj(){
-    var obj = {}
+function sonucObj(sonucHTML){
+    var scoreList = [];
+    var rows = sonucHTML.querySelectorAll("tr");
+    rows.forEach(function(row){
+        var matchItem = {};
+        matchItem.date=row.querySelectorAll("td")[0].innerText;
+        matchItem.team1 = row.querySelectorAll("td")[1].innerText;
+        matchItem.team2 = row.querySelectorAll("td")[3].innerText;
+        [matchItem.score1,matchItem.score2] = row.querySelectorAll("td")[2].innerText.split(":").map(_=>_.trim());
 
-
-    return obj;
-}
-
-// TODO: PUANOBJ func
-function sonucObj(){
-    var obj = {}
-
-
-    
-    return obj;
+        scoreList.push(matchItem);
+    })
+    return scoreList;
 }
 
 module.exports = {start}
