@@ -20,7 +20,8 @@ const {fetchAsync} = require('./utils.js');
         const fullDOM = parse(fullRawHTML);
 
         //PUAN
-        var puanHTML = removeLinksInHTML(fullDOM.querySelector("#puan-durumu"))
+        var puanHTML = removeLinksInHTML(fullDOM.querySelector("#lig-puan-durumu"))
+        
 
         writeFile(puanHTML.toString(),ligID,"./data/spor/html/puan/","html");
         sporData[ligID].puanHTML = puanHTML.toString();
