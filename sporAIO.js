@@ -76,6 +76,8 @@ function puanObj(puanHTML){
     obj.list = [];
 
     tbody.forEach(function(team){
+
+        if(team.querySelectorAll("td").length<obj.columns.length) return;
         var listItemObj = {};
         var keys = obj.columns;
         team.querySelectorAll("td").forEach((cell,index)=>{
