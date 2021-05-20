@@ -25,25 +25,41 @@ const {fetchAsync} = require('./utils.js');
 
         writeFile(puanHTML.toString(),ligID,"./data/spor/html/puan/","html");
         sporData[ligID].puanHTML = puanHTML.toString();
-        puanJSON = puanObj(puanHTML);
-        writeFile(puanJSON ,ligID,"./data/spor/json/puan/","json");
-        sporData[ligID].puanJSON = puanJSON;
+        try {
+            puanJSON = puanObj(puanHTML);
+            writeFile(puanJSON ,ligID,"./data/spor/json/puan/","json");
+            sporData[ligID].puanJSON = puanJSON;
+        } catch (error) {
+            console.log("hata puan obj" + error)
+        }
+       
 
         //FIKSTUR
         var fiksturHTML = removeLinksInHTML(fullDOM.querySelectorAll("table.liste.cs_LF")[0])
         writeFile(fiksturHTML.toString(),ligID,"./data/spor/html/fikstur/","html");
         sporData[ligID].fiksturHTML = fiksturHTML.toString();
-        fiksturJSON = fiksturObj(fiksturHTML);
+        
+        try {
+            fiksturJSON = fiksturObj(fiksturHTML);
         writeFile(fiksturJSON ,ligID,"./data/spor/json/fikstur/","json");
         sporData[ligID].fiksturJSON = fiksturJSON;
+        } catch (error) {
+            console.log("hata fikstur obj" + error)
+        }
 
         //SONUC        
-        var sonucHTML = removeLinksInHTML(fullDOM.querySelectorAll("table.liste.cs_LF")[1]);
+        var sonucHTML = removeLinksInHTML(fullDOM.querySelectorAll("table.liste.cs_LF")[0]);
         writeFile(sonucHTML.toString(),ligID,"./data/spor/html/sonuc/","html");
         sporData[ligID].sonucHTML = sonucHTML.toString();
-        sonucJSON = sonucObj(sonucHTML);
+        
+        try {
+            sonucJSON = sonucObj(sonucHTML);
         writeFile(sonucJSON ,ligID,"./data/spor/json/sonuc/","json");
         sporData[ligID].sonucJSON = sonucJSON;
+        } catch (error) {
+            console.log("hata sonuc obj" + error)
+        }
+
     }
     //TODO : Send POST KOD8 API 
     writeFile(sporData,"spor","./data/spor/","json");
@@ -53,7 +69,7 @@ const {fetchAsync} = require('./utils.js');
 function writeFile(data,name,dir,ext){
     var data = (ext == "json") ? JSON.stringify(data) : data;
     fs.writeFile(dir+name+"."+ext, data , () => {
-		console.log(dir+name+ext," yazıldı")
+		//console.log(dir+name+ext," yazıldı")
 	});
 }
 
@@ -65,7 +81,6 @@ function removeLinksInHTML(element){
     })
     return element;
 }
-
 
 //  Convert puan table HTML to JSON
 function puanObj(puanHTML){
@@ -129,3 +144,4 @@ spor.json
     },...
 }
 */
+
