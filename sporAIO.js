@@ -40,7 +40,7 @@ const {fetchAsync} = require('./utils.js');
         sporData[ligID].fiksturHTML = fiksturHTML.toString();
         
         try {
-            fiksturJSON = fiksturObj(fiksturHTML);
+            fiksturJSON = fiksturHTML=="hata" ? {"hata":"true"} :fiksturObj(fiksturHTML);
         writeFile(fiksturJSON ,ligID,"./data/spor/json/fikstur/","json");
         sporData[ligID].fiksturJSON = fiksturJSON;
         } catch (error) {
@@ -53,7 +53,7 @@ const {fetchAsync} = require('./utils.js');
         sporData[ligID].sonucHTML = sonucHTML.toString();
         
         try {
-            sonucJSON = sonucObj(sonucHTML);
+            sonucJSON = sonucHTML=="hata" ? {"hata":"true"} : sonucObj(sonucHTML);
         writeFile(sonucJSON ,ligID,"./data/spor/json/sonuc/","json");
         sporData[ligID].sonucJSON = sonucJSON;
         } catch (error) {
@@ -74,12 +74,16 @@ function writeFile(data,name,dir,ext){
 }
 
 function removeLinksInHTML(element){
+	if(element){
     element.querySelectorAll("td").forEach(function(td){
         if(td.querySelector("a")){
             td.set_content(td.querySelector("a").innerText);
         }
     })
-    return element;
+	return element;
+	}
+	else{return "hata"}
+    
 }
 
 //  Convert puan table HTML to JSON
