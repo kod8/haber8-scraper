@@ -36,8 +36,8 @@ const {fetchAsync} = require(`${BASE}utils.js`);
 }
 
 function getToday(html){
-    var todayContainer = html.querySelector("#hafta_0.haftaDetay")
-    var date = html.querySelector(".tabs.haftaGunler a[href=#hafta_0] span.baslik").innerText;
+    var todayContainer = html.querySelector("#week_0.haftaDetay")
+    var date = html.querySelector(`[onclick="openWeatherDetail(event, 'week_0')"] .baslik`).innerText.trim();
     var now = todayContainer.querySelector(".sehir .baslik b").innerText.split("°")[0];
     var condition=todayContainer.querySelector(".sehir .durum").innerText;
     
@@ -52,13 +52,14 @@ function getToday(html){
 }
 
 function getOtherDays(html){
-    var otherDays = ["hafta_1","hafta_2"]
+    var otherDays = ["week_1","week_2"]
+
     var data = [];
 
     otherDays.forEach(id=>{
 
-        var dayContainer = html.querySelector(`#${id}.haftaDetay`)
-        var date = html.querySelector(`.tabs.haftaGunler a[href=#${id}] span.baslik`).innerText;
+         var dayContainer = html.querySelector(`#${id}.haftaDetay`)
+        var date = html.querySelector(`[onclick="openWeatherDetail(event, '${id}')"] .baslik`).innerText.trim();
         var now = dayContainer.querySelector(".sehir .baslik b").innerText.split("°")[0];
         var condition=dayContainer.querySelector(".sehir .durum").innerText;
     
